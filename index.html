@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Linear Relationship Between Ozone and Solar Radiation, Wind and Temperature</title>
+  <meta charset="utf-8">
+  <meta name="description" content="Linear Relationship Between Ozone and Solar Radiation, Wind and Temperature">
+  <meta name="author" content="Marvin Han">
+  <meta name="generator" content="slidify" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/default.css" media="all" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/phone.css" 
+    media="only screen and (max-device-width: 480px)" >
+  <link rel="stylesheet" href="libraries/frameworks/io2012/css/slidify.css" >
+  <link rel="stylesheet" href="libraries/highlighters/highlight.js/css/tomorrow.css" />
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->  <link rel=stylesheet href="./assets/css/ribbons.css"></link>
+
+  
+  <!-- Grab CDN jQuery, fall back to local if offline -->
+  <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.min.js"></script>
+  <script>window.jQuery || document.write('<script src="libraries/widgets/quiz/js/jquery.js"><\/script>')</script> 
+  <script data-main="libraries/frameworks/io2012/js/slides" 
+    src="libraries/frameworks/io2012/js/require-1.0.8.min.js">
+  </script>
+  
+  
+
+</head>
+<body style="opacity: 0">
+  <slides class="layout-widescreen">
+    
+    <!-- LOGO SLIDE -->
+        <slide class="title-slide segue nobackground">
+  <hgroup class="auto-fadein">
+    <h1>Linear Relationship Between Ozone and Solar Radiation, Wind and Temperature</h1>
+    <h2>A Slidify Presentation</h2>
+    <p>Marvin Han<br/></p>
+  </hgroup>
+  <article></article>  
+</slide>
+    
+
+    <!-- SLIDES -->
+    <slide class="" id="slide-1" style="background:;">
+  <hgroup>
+    <h2>Introduction to my shiny application</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>It is a simple application using linear regression model to show the relationship between ozone as the outcome and solar radiation, wind and temperature as the predictors in the R built-in airquality dataset. </li>
+<li>You can choose which variables (also interaction terms) to include in your model. </li>
+<li>The application will give you your model and its associated mean squared error.</li>
+<li>It may take a little while to get the results when you access it online in the beginning. Just be a little patient! :)</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>User Interface</h2>
+  </hgroup>
+  <article data-timings="">
+    <ol>
+<li>The UI has two main parts: a sidebar panel and a main panel. </li>
+<li>On the sidebar panel on the left side, you can choose the terms to be included in your model. </li>
+<li>On the main panel on the right side, the results will be shown. </li>
+</ol>
+
+<h2>Server End</h2>
+
+<ol>
+<li>The server application uses reactive expression to recieve the regressor information and transforms it into a corresponding formula. </li>
+<li>It calculates the model and its mean squared error to be shown on the main panel.</li>
+</ol>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>A Example</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>For example, if you choose solar radiation, wind and their interaction term as the regressors, the follwing things will be computed. </li>
+</ul>
+
+<pre><code class="r">data(airquality)
+# Exclude the missing values
+na &lt;- sapply(1:nrow(airquality), function(i) {
+    any(is.na(airquality[i, ]))
+})
+data &lt;- airquality[!na, ]
+# Get the linear model
+fit &lt;- lm(Ozone ~ Solar.R + Wind + Solar.R:Wind, data = data)
+# Calculate the mean squared error
+mse &lt;- format(sum(fit$resid^2)/nrow(data), digits = 5)
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <hgroup>
+    <h2>The Example Continued</h2>
+  </hgroup>
+  <article data-timings="">
+    <ul>
+<li>The following outputs will be shown on the main panel</li>
+</ul>
+
+<pre><code class="r">summary(fit)$coef
+</code></pre>
+
+<pre><code>##              Estimate Std. Error t value  Pr(&gt;|t|)
+## (Intercept)  34.46769  17.634602   1.955 0.0532456
+## Solar.R       0.32414   0.083928   3.862 0.0001928
+## Wind         -1.59455   1.508979  -1.057 0.2930260
+## Solar.R:Wind -0.02028   0.007246  -2.799 0.0060892
+</code></pre>
+
+<pre><code class="r">mse
+</code></pre>
+
+<pre><code>## [1] &quot;562.88&quot;
+</code></pre>
+
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+<slide class="class" id="id" style="background:;">
+  <article data-timings="">
+    
+  </article>
+  <!-- Presenter Notes -->
+</slide>
+
+    <slide class="backdrop"></slide>
+  </slides>
+  <div class="pagination pagination-small" id='io2012-ptoc' style="display:none;">
+    <ul>
+      <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=1 title='Introduction to my shiny application'>
+         1
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=2 title='User Interface'>
+         2
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=3 title='A Example'>
+         3
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=4 title='The Example Continued'>
+         4
+      </a>
+    </li>
+    <li>
+      <a href="#" target="_self" rel='tooltip' 
+        data-slide=5 title=''>
+         5
+      </a>
+    </li>
+  </ul>
+  </div>  <!--[if IE]>
+    <script 
+      src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js">  
+    </script>
+    <script>CFInstall.check({mode: 'overlay'});</script>
+  <![endif]-->
+</body>
+  <!-- Load Javascripts for Widgets -->
+  
+  <!-- LOAD HIGHLIGHTER JS FILES -->
+  <script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  <!-- DONE LOADING HIGHLIGHTER JS FILES -->
+   
+  </html>
