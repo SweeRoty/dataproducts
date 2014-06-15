@@ -58,4 +58,3 @@ summary(fit)$coef
 mse
 ```
 
---- .class #id
