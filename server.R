@@ -29,7 +29,7 @@ fit <- function(variables, interactions) {
 }
 
 error <- function(fit) {
-    mse <- format(sum((fit$fitted - data$Ozone)^2)/nrow(data), digits = 5)
+    mse <- format(sum(fit$resid^2)/nrow(data), digits = 5)
 }
 
 shinyServer(
