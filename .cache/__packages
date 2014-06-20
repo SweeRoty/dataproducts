@@ -1,3 +1,7 @@
 base
 devtools
+ggplot2
+shiny
+shinyapps
 slidify
+stringr
