@@ -4,6 +4,7 @@ library(ggplot2)
 data(airquality)
 na <- sapply(1:nrow(airquality), function(i) {any(is.na(airquality[i, ])) } )
 data <- airquality[!na, ]
+
 myFit <- function(variable) {
     formula <- as.formula(paste("Ozone ~", variable))
     fit <- lm(formula, data = data)
