@@ -1,25 +1,20 @@
 library(shiny)
-library(stringr)
+library(ggplot2)
 
 shinyUI(pageWithSidebar(
-    h3("Linear Relationship Between Ozone and Solar Radiation, Wind and Temperature"),
+    h4("Linear Relationship Between Ozone and Solar Radiation, Wind and Temperature in the Air Quality Dataset"),
     sidebarPanel(
-        h4("Select the regressors for your linear regression model"),
-        checkboxGroupInput("variables", "Variables", 
-                           c("Solar.R", "Wind", "Temp"), selected = "Solar.R"),
-        checkboxGroupInput("interaction", "Interaction Terms", 
-                           c("Solar.R & Wind", "Solar.R & Temp", "Wind & Temp")),
-        h4("Instructions for users"),
-        p("This is a simple application using the airquality dataset within R to build a linear model
-          between ozone as the outcome and other three variables as predictors. On the left side, you
-          can choose the terms you want to include in your model and the reults will be shown on the
-          the right side with the mean squared error of your model. It may take a little while to get 
-          the results when you access it online. :) ")
+        h5("The outcome variable is Ozone"),
+        h5("Please select the regressor for your single variable linear regression model"),
+        radioButtons("radio", "", choices = c("Solar.R", "Wind", "Temp")),
+        h5("Notice"),
+        p("It may take a little while to generate the results when you access it online. Please
+          be a little patient! :) ")
     ),
     mainPanel(
-        h4("The generated linear model"),
-        tableOutput("variables"),
-        h4("The mean squared error of your linear model"),
-        textOutput("mse")
+        h5("The plot of your fitted simple linear regression line"),
+        plotOutput("plot"),
+        h5("The coefficients of your simple linear regression model"),
+        tableOutput("table")
     )
 ))
